@@ -13,6 +13,6 @@
     "shortcuts": [["komorebi-switcher.exe", "komorebi-switcher"]],
     "checkver": "github",
     "autoupdate": {
-        "url": "https://github.com/amrbashir/komorebi-switcher/releases/download/v0.9.1/komorebi-switcher.exe"
+        "url": "https://github.com/amrbashir/komorebi-switcher/releases/download/v$version/komorebi-switcher.exe"
     }
 }
