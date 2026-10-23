@@ -13,10 +13,11 @@ Template bucket for [Scoop](https://scoop.sh), the Windows command-line installe
    - Navigate to `Settings` - `Actions` - `General` - `Actions permissions`.
    - Select `Allow all actions and reusable workflows`.
    - Then `Save`.
-3. Allow writing to the repository from within GitHub Actions:
+3. Keep the default GitHub Actions token permissions read-only:
    - Navigate to `Settings` - `Actions` - `General` - `Workflow permissions`.
-   - Select `Read and write permissions`.
+   - Select `Read repository contents and packages permissions`.
    - Then `Save`.
+   - Maintenance workflows request write permissions explicitly.
 4. Document the bucket in `README.md`.
 5. Replace the placeholder repository string in `bin/auto-pr.ps1`.
 6. Create new manifests by copying `bucket/app-name.json.template` to
