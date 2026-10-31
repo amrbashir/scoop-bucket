@@ -1,0 +1,38 @@
+{
+    "version": "0.16.0",
+    "description": "AI-native design editor and open-source Figma alternative",
+    "homepage": "https://github.com/open-pencil/open-pencil",
+    "license": "MIT",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/open-pencil/open-pencil/releases/download/v0.16.0/OpenPencil_0.16.0_x64-setup.exe#/dl.7z",
+            "hash": "1b851ac488ce9be437f8b321cadb87ee169f9a1d11968d8e8be87742c9d4df4b"
+        },
+        "arm64": {
+            "url": "https://github.com/open-pencil/open-pencil/releases/download/v0.16.0/OpenPencil_0.16.0_arm64-setup.exe#/dl.7z",
+            "hash": "98f4c26d85bb1323b2d95f7064df655b6f82de3d2a7d08481ea4bca4f1a747db"
+        }
+    },
+    "post_install": "Remove-Item \"$dir\\`$PLUGINSDIR\", \"$dir\\uninstall.exe\" -Force -Recurse -ErrorAction Ignore",
+    "bin": "OpenPencil.exe",
+    "shortcuts": [
+        [
+            "OpenPencil.exe",
+            "OpenPencil"
+        ]
+    ],
+    "checkver": "github",
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/open-pencil/open-pencil/releases/download/v$version/OpenPencil_$version_x64-setup.exe#/dl.7z"
+            },
+            "arm64": {
+                "url": "https://github.com/open-pencil/open-pencil/releases/download/v$version/OpenPencil_$version_arm64-setup.exe#/dl.7z"
+            }
+        },
+        "hash": {
+            "url": "https://github.com/open-pencil/open-pencil/releases/download/v$version/SHA256SUMS"
+        }
+    }
+}
