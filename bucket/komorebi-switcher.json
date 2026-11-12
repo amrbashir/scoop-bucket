@@ -1,14 +1,30 @@
 {
-    "version": "0.10.4",
+    "version": "0.11.0",
     "description": "A minimal workspace switcher for the Komorebi tiling window manager, seamlessly integrated into Windows 10/11 taskbar or macOS menu bar.",
     "homepage": "https://github.com/amrbashir/komorebi-switcher",
     "license": "MIT",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/amrbashir/komorebi-switcher/releases/download/v0.10.4/komorebi-switcher.exe",
+            "url": "https://github.com/amrbashir/komorebi-switcher/releases/download/v0.11.0/komorebi-switcher.exe",
             "hash": "66a42ac300e284c87b6b6e52b50e54f207d85e243140e07ca982800b050188d4"
         }
     },
+    "pre_install": [
+        "$runtimeInstalled = { Get-AppxPackage Microsoft.WindowsAppRuntime.2 -ErrorAction Stop | Where-Object { $_.Architecture -eq 'X64' -and [version]$_.Version -ge [version]'2.6.4.0' -and $_.Status -eq 'Ok' } | Select-Object -First 1 }",
+        "if (!(& $runtimeInstalled)) {",
+        "    info 'Installing Windows App Runtime...'",
+        "    $runtimeInstaller = Join-Path ([IO.Path]::GetTempPath()) ('WindowsAppRuntimeInstall-' + [guid]::NewGuid() + '.exe')",
+        "    try {",
+        "        Invoke-WebRequest -Uri 'https://aka.ms/windowsappsdk/2.6/2.6.5/windowsappruntimeinstall-x64.exe' -OutFile $runtimeInstaller -UseBasicParsing -ErrorAction Stop",
+        "        $runtimeHash = (Get-FileHash -LiteralPath $runtimeInstaller -Algorithm SHA256 -ErrorAction Stop).Hash",
+        "        if ($runtimeHash -ne '908e9a8ed8ad2ac765d6679543b0758812437e3ad6e3223f08d1730635cec8ec') { throw 'Windows App Runtime installer SHA256 verification failed.' }",
+        "        $process = Start-Process -FilePath $runtimeInstaller -ArgumentList '--quiet' -WindowStyle Hidden -Wait -PassThru -ErrorAction Stop",
+        "        if (!(& $runtimeInstalled)) { throw \"Windows App Runtime installation failed (exit code $($process.ExitCode)).\" }",
+        "    } finally {",
+        "        Remove-Item -LiteralPath $runtimeInstaller -Force -ErrorAction SilentlyContinue",
+        "    }",
+        "}"
+    ],
     "bin": "komorebi-switcher.exe",
     "shortcuts": [
         [
